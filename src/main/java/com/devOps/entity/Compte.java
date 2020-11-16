@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @Entity
@@ -45,9 +47,9 @@ private Long idCompte ;
 private Date dateCreation;
 @Column(name="SOLDE")
 private double solde;
+@JsonBackReference
 @ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
 @JoinColumn(name="FK_UTILISATEUR",referencedColumnName = "ID_UTILISATEUR")
-@JsonBackReference
 private Utilisateur user;
 
 public Compte() {
@@ -97,6 +99,25 @@ public double getSolde() {
 public void setSolde(double solde) {
 	this.solde = solde;
 }
+
+@JsonGetter
+public Utilisateur getUser() {
+	return user;
+}
+
+
+@JsonSetter
+public void setUser(Utilisateur user) {
+	this.user = user;
+}
+
+
+
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
+
+
 
 @Override
 public String toString() {
